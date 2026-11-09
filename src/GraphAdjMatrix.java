@@ -3,9 +3,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * @author Carter Jorgensen
+ * Date: 11 / 09 / 2026
+ * Purpose: To create a class that can model a graph using a matrix (or 2-dimensional arraylist)
+ */
 public class GraphAdjMatrix {
     //Attributes
-    private ArrayList<ArrayList<Double>> adjMatrix;
+    private final ArrayList<ArrayList<Double>> adjMatrix;
 
     //Constructors
     /**
