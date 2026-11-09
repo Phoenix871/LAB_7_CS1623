@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class GraphAdjList {
     //Attributes (gonna try List's for this one)
-    private final List<List<AbstractMap.SimpleEntry<Integer, Double>>> adjList;
+    private final List<List<AbstractMap.SimpleEntry<Character, Double>>> adjList;
 
 
     //Constructors
@@ -29,31 +29,50 @@ public class GraphAdjList {
             //A loop to run through the whole file=============================
             while (firstScanner.hasNext()) {
                 //All the relevant information for this current loop===========
-                int fromNode = firstScanner.next().charAt(0) - 'A'; //to get an accurate index
-                int toNode = firstScanner.next().charAt(0) - 'A'; //ditto ^
+                char fromNode = firstScanner.next().charAt(0); //to get an accurate index
+                char toNode = firstScanner.next().charAt(0); //store simply as a character
                 Double edgeWeight = firstScanner.nextDouble(); //not used right now but helps skip a character in the file
                 //=============================================================
 
-                if (!characters.contains(fromNode)) {
-                    characters.add(fromNode);
+                if (!characters.contains(fromNode - 'A')) {
+                    characters.add(fromNode - 'A');
                 }
-                if (!characters.contains(toNode)) {
-                    characters.add(toNode);
+                if (!characters.contains(toNode - 'A')) {
+                    characters.add(toNode - 'A');
                 }
             }
             //=================================================================
 
-            adjList.add;
+            //need to find out how many lists to have in adjList
+            int largest = characters.getFirst(); //keeps track of the 'largest' letter
+            for (Integer i : characters) { //loops through the arraylist
+                if (i > largest) {
+                    largest = i;
+                }
+            }
+
+            for (int i = 0; i <= largest; i++) {
+                adjList.add(new ArrayList<>()); //adds a new list for every letter up to the largest
+            }
 
             //Now to add the values============================================
-            Scanner secondScanner = new Scanner(fName); //New scanner for adding data
+            Scanner secondScanner = new Scanner(new FileReader(fName)); //New scanner for adding data
 
-            while (s)
+            while (secondScanner.hasNext()) {
+                //All the relevant information for this current loop===========
+                char fromNode = secondScanner.next().charAt(0); //to get an accurate index
+                char toNode = secondScanner.next().charAt(0); //store simply as a character
+                Double edgeWeight = secondScanner.nextDouble(); //not used right now but helps skip a character in the file
+                //=============================================================
 
+                adjList.get(fromNode - 'A').add(new AbstractMap.SimpleEntry<>(toNode, edgeWeight)); //adds the edge in one direction
+                adjList.get(toNode - 'A').add(new AbstractMap.SimpleEntry<>(fromNode, edgeWeight)); //adds the edge in the other direction
 
+            }
 
-
-
+            //just to save some memory, good practice
+            firstScanner.close();
+            secondScanner.close();
         }
         catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -61,6 +80,14 @@ public class GraphAdjList {
     }
 
     //Methods
+    /**
+     * A small method to simply print out the contents of the adjacency list
+     */
+    public void printAdjList() {
+        for (int i = 0; i < adjList.size(); i++) {
+            System.out.print(((char) (i + 'A')) + ": " + adjList.get(i).toString());
 
-
+            System.out.println();
+        }
+    }
 }

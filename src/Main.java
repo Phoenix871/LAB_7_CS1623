@@ -12,5 +12,11 @@ public class Main {
         GraphAdjMatrix g = new GraphAdjMatrix("src/Files/Test.txt");
 
         g.printAdjMatrix();
+
+        System.out.print("\n\n");
+
+        GraphAdjList l = new GraphAdjList("src/Files/Test.txt");
+
+        l.printAdjList();
     }
 }

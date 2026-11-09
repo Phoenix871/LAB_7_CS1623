@@ -26,8 +26,6 @@ public class GraphAdjMatrix {
             int adjMatSize = findLargestChar(zeroScanner);
             adjMatrix = new ArrayList<>(adjMatSize);
 
-            System.out.println(adjMatSize);
-
             //loops through each column of the matrix
             for (int col = 0; col < adjMatSize; col++) {
                 ArrayList<Double> tempRow = new ArrayList<>(adjMatSize); //The arraylist to be added to the matrix
