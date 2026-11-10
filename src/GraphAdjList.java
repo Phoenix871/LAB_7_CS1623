@@ -1,9 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * @author Carter Jorgensen
@@ -16,12 +14,18 @@ public class GraphAdjList {
 
 
     //Constructors
-    public GraphAdjList(String fName) {
+    public GraphAdjList(String fName) throws FileNotFoundException{
         try {
+            //The list where everything will be stored
             adjList = new ArrayList<>();
 
             //What will read the file the first time through
             Scanner firstScanner = new Scanner(new FileReader(fName));
+
+            //Check if the file is empty
+            if (!firstScanner.hasNext()) {
+                throw new FileNotFoundException("There is nothing in this file!");
+            }
 
             //An arraylist to keep track of the characters that show up
             ArrayList<Integer> characters = new ArrayList<Integer>();
@@ -89,5 +93,48 @@ public class GraphAdjList {
 
             System.out.println();
         }
+    }
+
+    /**
+     * A method that uses breadth-first search to explore a graph that uses an adjacency list
+     * @param start Where the algorithm will start at
+     * @return The order at which each node is visited
+     */
+    public ArrayList<Character> breadthFirstSearch(char start) throws IllegalArgumentException {
+        if (start - 'A' < 0 || start - 'A' >= adjList.size()) { //check if the character is valid
+            throw new IllegalArgumentException("This character does not exist in the graph!");
+        }
+
+        //Make sure start is uppercase
+        start = Character.toUpperCase(start);
+
+        //A queue to help keep track of where we are during the search
+        Queue<Character> queue = new LinkedList<>();
+
+        //The arraylist to be returned and used to let us know what has or hasn't been visited
+        ArrayList<Character> visited = new ArrayList<>();
+
+        //Add the start character to the queue and mark it as visited
+        queue.add(start);
+        visited.add(start);
+
+        //loops for as long as the queue we have doesn't run empty, which would mean that we have been through every element
+        while (!queue.isEmpty()) {
+            char currentCharacter = queue.poll(); //Store the top-most element of the queue
+            //small issue if the character is lowercase, can fix that in main though
+
+            //Loops through each entry in adjList
+            for (AbstractMap.SimpleEntry<Character, Double> c : adjList.get(currentCharacter - 'A')) {
+                if (!visited.contains(c.getKey())) {
+                    //Add character to visited
+                    visited.add(c.getKey());
+
+                    //add character to queue
+                    queue.add(c.getKey());
+                }
+            }
+        }
+
+        return visited;
     }
 }

@@ -1,4 +1,6 @@
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  * @author Carter Jorgensen
@@ -8,15 +10,31 @@ import java.io.File;
 public class Main {
     public static void main(String[] args) {
 
+        // file that 100% works: src/Files/Test.txt
 
-        GraphAdjMatrix g = new GraphAdjMatrix("src/Files/Test.txt");
+        try {
+            //Actual user interaction
+            Scanner input = new Scanner(System.in);
 
-        g.printAdjMatrix();
+            System.out.println("Please enter a file to be read from: ");
+            String fileName = input.next();
 
-        System.out.print("\n\n");
+            //create objects using user input
+            GraphAdjMatrix userMatrixGraph = new GraphAdjMatrix(fileName);
+            GraphAdjList userListGraph = new GraphAdjList(fileName);
 
-        GraphAdjList l = new GraphAdjList("src/Files/Test.txt");
+            System.out.println("\nMatrix Representation: ");
+            userMatrixGraph.printAdjMatrix();
 
-        l.printAdjList();
+            System.out.println("\nList Representation: ");
+            userListGraph.printAdjList();
+
+
+            System.out.println("\n" + userListGraph.breadthFirstSearch('A'));
+        }
+        catch (FileNotFoundException | IllegalArgumentException e) {
+            System.out.println("Something went wrong: " + e);
+        }
     }
+
 }

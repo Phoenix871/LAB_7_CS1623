@@ -107,5 +107,9 @@ public class GraphAdjMatrix {
         }
     }
 
+    //Sounds like breadth first search just goes through the graph?
 
+    //public ArrayList<Character> breadthFirstSearch(char start) {
+
+    //}
 }
