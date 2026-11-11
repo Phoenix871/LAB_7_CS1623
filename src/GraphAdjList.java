@@ -1,6 +1,5 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -28,7 +27,7 @@ public class GraphAdjList {
             }
 
             //An arraylist to keep track of the characters that show up
-            ArrayList<Integer> characters = new ArrayList<Integer>();
+            ArrayList<Integer> characters = new ArrayList<>();
 
             //A loop to run through the whole file=============================
             while (firstScanner.hasNext()) {

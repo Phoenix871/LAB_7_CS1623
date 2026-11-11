@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
@@ -16,10 +17,15 @@ public class GraphAdjMatrix {
      * A constructor that builds a graph using an Adjacency matrix from a given file
      * @param fName The name of the file being read
      */
-    public GraphAdjMatrix(String fName) {
+    public GraphAdjMatrix(String fName) throws FileNotFoundException {
         try {
             //Create a FileReader and a Scanner to be able to read the file in bits and pieces
             Scanner zeroScanner = new Scanner(new FileReader(fName));
+
+            //Check if the file is empty
+            if (!zeroScanner.hasNext()) {
+                throw new FileNotFoundException("There is nothing in this file!");
+            }
 
             //Need to initialize adjMatrix to have all zeros===================
             int adjMatSize = findLargestChar(zeroScanner);

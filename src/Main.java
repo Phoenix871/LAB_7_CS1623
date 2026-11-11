@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
@@ -41,7 +40,7 @@ public class Main {
             System.out.println("\nBreadth First Search List At " + charToSearch + ": " + userListGraph.breadthFirstSearch(charToSearch));
             System.out.println("\nBreadth First Search Matrix At " + charToSearch + ": " + userMatrixGraph.breadthFirstSearch(charToSearch));
         }
-        catch (FileNotFoundException | IllegalArgumentException e) {
+        catch (FileNotFoundException | IllegalArgumentException e) { //Catch's any stray errors that may occur
             System.out.println("Something went wrong: " + e);
         }
     }
