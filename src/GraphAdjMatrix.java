@@ -1,7 +1,6 @@
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * @author Carter Jorgensen
@@ -107,9 +106,50 @@ public class GraphAdjMatrix {
         }
     }
 
-    //Sounds like breadth first search just goes through the graph?
+    /**
+     * A method that uses breadth-first search to explore a graph that uses an adjacency list
+     * @param start Where the algorithm will start at
+     * @return The order at which each node is visited
+     */
+    public ArrayList<Character> breadthFirstSearch(char start) throws IllegalArgumentException {
+        //Make sure start is uppercase
+        start = Character.toUpperCase(start);
 
-    //public ArrayList<Character> breadthFirstSearch(char start) {
+        if (start - 'A' < 0 || start - 'A' >= adjMatrix.size()) { //check if the character is valid
+            throw new IllegalArgumentException("This character does not exist in the graph!");
+        }
 
-    //}
+        //A queue to help keep track of where we are during the search
+        Queue<Character> queue = new LinkedList<>();
+
+        //The arraylist to be returned and used to let us know what has or hasn't been visited
+        ArrayList<Character> visited = new ArrayList<>();
+
+        //Add the start character to the queue and mark it as visited
+        queue.add(start);
+        visited.add(start);
+
+        //loops for as long as the queue we have doesn't run empty, which would mean that we have been through every element
+        while (!queue.isEmpty()) {
+            char currentCharacter = queue.poll(); //Store the top-most element of the queue
+
+            int currentIndex = currentCharacter - 'A';
+
+            //Loops through each entry in adjMatrix
+            for (int i = 0; i < adjMatrix.size(); i++) {
+                //Create a character for i
+                char c = (char) (i+'A');
+
+                //checks if the entry is non-zero and whether it already has the character or not
+                if (!visited.contains(c) && adjMatrix.get(currentIndex).get(i) != 0.0) {
+                    //Add character to list and queue
+                    visited.add(c);
+                    queue.add(c);
+                }
+            }
+        }
+
+        //return the result
+        return visited;
+    }
 }

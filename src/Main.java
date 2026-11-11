@@ -30,7 +30,16 @@ public class Main {
             userListGraph.printAdjList();
 
 
-            System.out.println("\n" + userListGraph.breadthFirstSearch('A'));
+            //Prompt user for a breadth-first search starting at a character of their choosing
+            System.out.println("\nPlease enter a node to start searching: ");
+
+            //Gets user input
+            String userChar = input.next();
+            char charToSearch = userChar.toUpperCase().charAt(0);
+
+            //Print out results
+            System.out.println("\nBreadth First Search List At " + charToSearch + ": " + userListGraph.breadthFirstSearch(charToSearch));
+            System.out.println("\nBreadth First Search Matrix At " + charToSearch + ": " + userMatrixGraph.breadthFirstSearch(charToSearch));
         }
         catch (FileNotFoundException | IllegalArgumentException e) {
             System.out.println("Something went wrong: " + e);

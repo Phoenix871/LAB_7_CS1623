@@ -101,12 +101,12 @@ public class GraphAdjList {
      * @return The order at which each node is visited
      */
     public ArrayList<Character> breadthFirstSearch(char start) throws IllegalArgumentException {
+        //Make sure start is uppercase
+        start = Character.toUpperCase(start);
+
         if (start - 'A' < 0 || start - 'A' >= adjList.size()) { //check if the character is valid
             throw new IllegalArgumentException("This character does not exist in the graph!");
         }
-
-        //Make sure start is uppercase
-        start = Character.toUpperCase(start);
 
         //A queue to help keep track of where we are during the search
         Queue<Character> queue = new LinkedList<>();
@@ -121,7 +121,6 @@ public class GraphAdjList {
         //loops for as long as the queue we have doesn't run empty, which would mean that we have been through every element
         while (!queue.isEmpty()) {
             char currentCharacter = queue.poll(); //Store the top-most element of the queue
-            //small issue if the character is lowercase, can fix that in main though
 
             //Loops through each entry in adjList
             for (AbstractMap.SimpleEntry<Character, Double> c : adjList.get(currentCharacter - 'A')) {
@@ -135,6 +134,7 @@ public class GraphAdjList {
             }
         }
 
+        //return the result
         return visited;
     }
 }
